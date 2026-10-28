@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
  */
 final class SeasonManager
 {
-    public function __construct(private Standings $standings, private FixtureScheduler $scheduler, private Finance $finance)
+    public function __construct(private Standings $standings, private FixtureScheduler $scheduler, private Finance $finance, private Arena $arena)
     {
     }
 
@@ -39,7 +39,8 @@ final class SeasonManager
 
         return DB::transaction(function () use ($season) {
             $this->finance->payPrizes($season);
-            $this->promoteAndRelegate($season);
+            [$promoted, $relegated] = $this->promoteAndRelegate($season);
+            $this->arena->endOfSeason($season, $promoted, $relegated);
             $this->developPlayers();
             $this->endContracts($season);
             // Free agents age too; the oldest stop playing.
@@ -58,13 +59,15 @@ final class SeasonManager
         });
     }
 
-    private function promoteAndRelegate(Season $season): void
+    /** @return array{0: int[], 1: int[]} ids of promoted and relegated clubs */
+    private function promoteAndRelegate(Season $season): array
     {
         $top = League::where('tier', 1)->first();
         $lower = League::where('tier', 2)->orderBy('sort')->get();
         if (! $top || $lower->isEmpty()) {
-            return;
+            return [[], []];
         }
+        $up = [];
         $spots = config('game.promotion_spots');
 
         $topTable = $this->standings->table($season, $top);
@@ -74,12 +77,15 @@ final class SeasonManager
             $table = $this->standings->table($season, $league);
             foreach ($table->take($spots) as $row) {
                 $row->club->update(['league_id' => $top->id]);
+                $up[] = $row->club->id;
             }
             // Relegated clubs are spread over the second-tier leagues.
             foreach ($relegated->slice($i * $spots, $spots) as $row) {
                 $row->club->update(['league_id' => $league->id]);
             }
         }
+
+        return [$up, $relegated->map(fn ($r) => $r->club->id)->all()];
     }
 
     /**

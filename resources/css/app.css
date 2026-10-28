@@ -605,3 +605,23 @@ main { padding-block: 28px 64px; }
 footer.site { border-top: 1px solid var(--rule); padding-block: 22px 32px; color: var(--muted); font-size: var(--s-13); }
 
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* ---------- Arena ---------- */
+
+.crowd { margin-top: 8px; }
+.crowd__bar { height: 14px; border-radius: 7px; background: var(--rule); overflow: hidden; }
+.crowd__bar i { display: block; height: 100%; background: var(--court); border-radius: 7px; }
+.crowd__bar--build { height: 8px; margin: 10px 0 8px; }
+.crowd__bar--build i { background: var(--area); }
+.crowd__legend { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 6px; font-size: var(--s-15); }
+.crowd__note { margin-top: 10px; font-size: var(--s-15); color: var(--muted); }
+.crowd__note--hot { color: var(--ink); border-left: 3px solid var(--area); padding-left: 10px; }
+.builds { display: grid; gap: 10px; }
+.build { display: grid; gap: 8px; }
+.build__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.build__head b { font-size: var(--s-24); }
+.build__facts { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; margin: 0; font-size: var(--s-15); }
+.build__facts dt { color: var(--muted); }
+.build__facts dd { margin: 0; font-variant-numeric: tabular-nums; }
+.build .btn { justify-self: start; }
+.news li.arena .dot { background: var(--area); }

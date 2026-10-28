@@ -32,7 +32,7 @@ class SetupEconomy extends Command
 
         foreach (Club::with('league')->get() as $club) {
             $tier = (int) $club->league->tier;
-            $club->update(['arena_capacity' => Economy::START_CAPACITY[$tier]]);
+            $club->update(['arena_capacity' => Economy::START_CAPACITY[$tier], 'fans' => Economy::START_CAPACITY[$tier]]);
             $finance->book($club, Economy::START_BALANCE[$tier], 'start', 'Starting money');
         }
         Player::whereNotNull('club_id')->each(function (Player $p) use ($season, $rng) {

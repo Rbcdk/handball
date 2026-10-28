@@ -11,7 +11,7 @@ class Fixture extends Model
 {
     protected $fillable = [
         'season_id', 'league_id', 'round', 'home_club_id', 'away_club_id', 'scheduled_at', 'played_at',
-        'home_score', 'away_score', 'halftime_home', 'halftime_away', 'seed',
+        'home_score', 'away_score', 'halftime_home', 'halftime_away', 'seed', 'attendance',
     ];
 
     protected function casts(): array
@@ -70,6 +70,14 @@ class Fixture extends Model
     public function opponentOf(Club $club): Club
     {
         return (int) $this->home_club_id === (int) $club->id ? $this->away : $this->home;
+    }
+
+    /** 'W', 'D' or 'L' for this club, once the match is played. */
+    public function resultFor(Club $club): string
+    {
+        [$mine, $theirs] = $this->isHome($club) ? [$this->home_score, $this->away_score] : [$this->away_score, $this->home_score];
+
+        return $mine > $theirs ? 'W' : ((int) $mine === (int) $theirs ? 'D' : 'L');
     }
 
     public function isHome(Club $club): bool

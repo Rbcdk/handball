@@ -14,6 +14,7 @@
             <a href="#tactics">Tactics</a>
             <a href="#training">Line-up, training and fitness</a>
             <a href="#money">Money and transfers</a>
+            <a href="#arena">Arena and fans</a>
             <a href="#replay">Reading a replay</a>
         </nav>
 
@@ -116,6 +117,12 @@
                     <dt>Squad size</dt><dd>Between {{ \App\Game\Economy::SQUAD_MIN }} and {{ \App\Game\Economy::SQUAD_MAX }} players</dd>
                 </dl>
                 <p>To sell a player, open his page from your squad and choose a price. Prices must be between half and four times his market value.</p>
+            </section>
+
+            <section id="arena">
+                <h2 class="section-title narrow">Arena and fans</h2>
+                <p>Every club has a number of <b>fans</b>. They grow a little with every win, shrink with every loss, and promotion brings many new ones (relegation costs some). The higher you are in the table, the bigger the share of your fans that comes to a home match. Your arena caps the crowd: when it is sold out, the fans who don't get a ticket are money you miss.</p>
+                <p>On the <b>Arena</b> page you can build 250, 500 or 1.000 more seats. You pay at once and the seats are ready after a few match days. Every seat costs upkeep each home match, full or empty, so only build when your arena keeps selling out.</p>
             </section>
 
             <section id="replay">

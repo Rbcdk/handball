@@ -15,6 +15,8 @@ class Transaction extends Model
         'prize' => 'Prize money',
         'transfer_in' => 'Player bought',
         'transfer_out' => 'Player sold',
+        'arena_build' => 'Arena expansion',
+        'upkeep' => 'Arena upkeep',
     ];
 
     protected $fillable = ['club_id', 'season_id', 'amount', 'type', 'description', 'balance_after'];

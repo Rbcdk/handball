@@ -69,16 +69,51 @@ final class Economy
         return self::round(max(500, $marketValue / 140), 100);
     }
 
-    /**
-     * Ticket income for one home match.
-     *
-     * @param  float  $form  0 (bottom of the table) to 1 (top): good teams draw bigger crowds
-     */
-    public static function ticketIncome(int $tier, int $capacity, float $form): int
-    {
-        $fill = min(1.0, 0.55 + 0.35 * $form);
+    /** Arena expansions on offer: extra seats => match days it takes to build them. */
+    public const EXPANSIONS = [250 => 3, 500 => 5, 1000 => 8];
 
-        return self::round($capacity * $fill * self::TICKET_PRICE[$tier], 100);
+    public const MAX_CAPACITY = 12_000;
+
+    /** Upkeep per seat per match day (cleaning, heating, staff). */
+    public const SEAT_UPKEEP = 2;
+
+    /** How the fan base changes after one match. */
+    public const FAN_CHANGE = ['W' => 0.010, 'D' => 0.002, 'L' => -0.007];
+
+    /** ... and at the end of a season. */
+    public const FAN_PROMOTED = 0.15;
+
+    public const FAN_RELEGATED = -0.10;
+
+    public const MIN_FANS = 300;
+
+    /**
+     * How many fans come to a home match. A club's fan base grows with wins; the better the
+     * team is doing in the table, the bigger the share that turns up. The arena caps it.
+     *
+     * @param  float  $form  0 (bottom of the table) to 1 (top)
+     */
+    public static function attendance(int $fans, int $capacity, float $form): int
+    {
+        return (int) min($capacity, round($fans * (0.55 + 0.35 * $form)));
+    }
+
+    /** Ticket income for one home match. */
+    public static function ticketIncome(int $tier, int $attendance): int
+    {
+        return self::round($attendance * self::TICKET_PRICE[$tier], 100);
+    }
+
+    /** Price of building more seats: every seat costs more the bigger the arena already is. */
+    public static function expansionCost(int $capacity, int $seats): int
+    {
+        return self::round($seats * (900 + 0.4 * $capacity), 1_000);
+    }
+
+    /** The fan base after a match ('W', 'D' or 'L' from this club's point of view). */
+    public static function fansAfter(int $fans, string $result): int
+    {
+        return max(self::MIN_FANS, (int) round($fans * (1 + self::FAN_CHANGE[$result])));
     }
 
     /** Sponsor money paid each match day. */

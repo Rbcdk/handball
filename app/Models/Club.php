@@ -26,7 +26,7 @@ class Club extends Model
         'rotation' => ['label' => 'Rotation', 'options' => ['low' => 'Low', 'normal' => 'Normal', 'high' => 'High']],
     ];
 
-    protected $fillable = ['league_id', 'user_id', 'name', 'short', 'city', 'color', 'tactics', 'balance', 'arena_capacity', 'training_intensity', 'lineup', 'taken_over_at'];
+    protected $fillable = ['league_id', 'user_id', 'name', 'short', 'city', 'color', 'tactics', 'balance', 'arena_capacity', 'fans', 'arena_expansion', 'arena_build_left', 'training_intensity', 'lineup', 'taken_over_at'];
 
     protected function casts(): array
     {
@@ -35,6 +35,9 @@ class Club extends Model
             'lineup' => 'array',
             'balance' => 'integer',
             'arena_capacity' => 'integer',
+            'fans' => 'integer',
+            'arena_expansion' => 'integer',
+            'arena_build_left' => 'integer',
             'taken_over_at' => 'datetime',
         ];
     }

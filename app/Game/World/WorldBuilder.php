@@ -66,6 +66,7 @@ final class WorldBuilder
                         'color' => self::COLORS[$colorIndex++ % count(self::COLORS)],
                         'tactics' => $this->randomTactics($rng),
                         'arena_capacity' => \App\Game\Economy::START_CAPACITY[$def['tier']],
+                        'fans' => \App\Game\Economy::START_CAPACITY[$def['tier']],
                     ]);
                     $this->finance->book($model, \App\Game\Economy::START_BALANCE[$def['tier']], 'start', 'Starting money');
                     foreach ($factory->squad($strength) as $row) {

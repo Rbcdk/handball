@@ -48,15 +48,15 @@ final class Finance
         $rounds = (int) Fixture::where('season_id', $fixture->season_id)->where('league_id', $league->id)->max('round');
         $label = "Round {$fixture->round}";
 
-        // The current table position decides how full the arena is: winning teams draw bigger crowds.
-        $table = $this->standings->table($fixture->season, $league);
-        $clubs = max(1, $table->count());
-        $row = $table->first(fn ($r) => (int) $r->club->id === (int) $fixture->home_club_id);
-        $form = ($row && $row->played > 0) ? 1 - ($row->position - 1) / max(1, $clubs - 1) : 0.5;
+        $form = $this->form($fixture->home, $fixture->season, $league);
 
         $home = $fixture->home;
-        $tickets = Economy::ticketIncome($tier, (int) $home->arena_capacity, $form);
-        $this->book($home, $tickets, 'tickets', "{$label}: home match against {$fixture->away->name}", $fixture->season);
+        $attendance = Economy::attendance((int) $home->fans, (int) $home->arena_capacity, $form);
+        $fixture->update(['attendance' => $attendance]);
+        $tickets = Economy::ticketIncome($tier, $attendance);
+        $crowd = number_format($attendance, 0, ',', '.');
+        $this->book($home, $tickets, 'tickets', "{$label}: {$crowd} fans against {$fixture->away->name}", $fixture->season);
+        $this->book($home, -Economy::SEAT_UPKEEP * (int) $home->arena_capacity * 2, 'upkeep', "{$label}: arena upkeep", $fixture->season);
 
         foreach ([$fixture->home, $fixture->away] as $club) {
             $this->book($club, Economy::sponsorPerRound($tier, $rounds), 'sponsor', "{$label}: sponsor payment", $fixture->season);
@@ -65,6 +65,21 @@ final class Finance
                 $this->book($club, -$wages, 'wages', "{$label}: wages for {$club->players()->count()} players", $fixture->season);
             }
         }
+    }
+
+    /**
+     * 0 (bottom of the table) to 1 (top): the current table position decides how many
+     * of a club's fans come to a home match. 0.5 before the first match.
+     */
+    public function form(Club $club, ?Season $season, ?League $league): float
+    {
+        if (! $season || ! $league) {
+            return 0.5;
+        }
+        $table = $this->standings->table($season, $league);
+        $row = $table->first(fn ($r) => (int) $r->club->id === (int) $club->id);
+
+        return ($row && $row->played > 0) ? 1 - ($row->position - 1) / max(1, $table->count() - 1) : 0.5;
     }
 
     /** Prize money by final position, paid when a season ends. */

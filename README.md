@@ -102,6 +102,15 @@ Free agents cost only their wage. Contracts that run out at season end make the 
 - Injuries: about 0.6% per player per match, more when tired or training hard; 1–20 match days.
 - Club news on the overview lists injuries, recoveries and training progress.
 
+## Arena and fans (`app/Game/Arena.php`)
+
+- Each club has `fans`. After every match: win +1%, draw +0.2%, loss -0.7%; promotion +15%, relegation -10%.
+- Crowd at a home match = min(seats, fans × (0.55 + 0.35 × table form)); stored on `fixtures.attendance`.
+- Expansions: +250 / +500 / +1000 seats, built in 3 / 5 / 8 match days, cost seats × (900 + 0.4 × current seats).
+  Upkeep 2 gilden per seat per match day, charged at home matches. Max 12.000 seats.
+- AI clubs expand at season end when they sold out at least half their home matches and have twice the cost.
+- Simulated: a top team sells out in its second season; an average team never does with 1.300 seats.
+
 ## Leagues and seasons
 
 - The Crown League (top) and two second-tier leagues, the Ember League and the Frost League, 14 clubs each.

@@ -89,7 +89,7 @@
 
             <h2 class="section-title narrow" style="margin-top: 28px">Where the money comes from</h2>
             <dl class="kv">
-                <dt>Ticket sales</dt><dd>Every home match. {{ number_format($club->arena_capacity, 0, ',', '.') }} seats; the higher you are in the table, the fuller the arena.</dd>
+                <dt>Ticket sales</dt><dd>Every home match. {{ number_format($club->arena_capacity, 0, ',', '.') }} seats and {{ number_format($club->fans, 0, ',', '.') }} fans; the higher you are in the table, the more of them come. See the <a href="{{ route('arena') }}">Arena</a>.</dd>
                 <dt>Sponsor</dt><dd>{{ $money($sponsor) }} a season, paid in parts each match day.</dd>
                 <dt>Prize money</dt><dd>Paid at the end of the season. The higher you finish, the more you get.</dd>
                 <dt>Selling players</dt><dd>On the transfer market.</dd>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 /** Plays fixtures with the match engine and stores results, logs and player stats. */
 final class MatchRunner
 {
-    public function __construct(private MatchEngine $engine, private Finance $finance, private Training $training)
+    public function __construct(private MatchEngine $engine, private Finance $finance, private Training $training, private Arena $arena)
     {
     }
 
@@ -64,6 +64,7 @@ final class MatchRunner
             $this->finance->settleMatchDay($fixture);
             $this->training->afterMatch($fixture->home, $fixture, $result['playerStats']);
             $this->training->afterMatch($fixture->away, $fixture, $result['playerStats']);
+            $this->arena->afterMatch($fixture);
         });
     }
 

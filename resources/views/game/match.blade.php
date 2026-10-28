@@ -20,7 +20,7 @@
                 @endif
             </div>
             <div class="board__clock" data-clock>
-                @if ($fixture->isPlayed()) Full time, half-time {{ $fixture->halftime_home }}–{{ $fixture->halftime_away }} @else {{ $fixture->kickoffLabel() }} @endif
+                @if ($fixture->isPlayed()) Full time, half-time {{ $fixture->halftime_home }}–{{ $fixture->halftime_away }}@if ($fixture->attendance) · {{ number_format($fixture->attendance, 0, ',', '.') }} fans @endif @else {{ $fixture->kickoffLabel() }} @endif
             </div>
         </div>
         <div class="board__team board__team--away">

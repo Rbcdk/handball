@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GameController;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/listings/{listing}/buy', [MarketController::class, 'buy'])->name('listings.buy');
         Route::post('/listings/{listing}/bid', [MarketController::class, 'bid'])->name('listings.bid');
         Route::get('/finances', [MarketController::class, 'finances'])->name('finances');
+        Route::get('/arena', [ArenaController::class, 'show'])->name('arena');
+        Route::post('/arena/expand', [ArenaController::class, 'expand'])->name('arena.expand');
     });
 });
 
