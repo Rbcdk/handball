@@ -14,3 +14,4 @@ npm-debug.log
 /database/*.sqlite-journal
 /storage/logs/*.log
 .DS_Store
+*.zip
