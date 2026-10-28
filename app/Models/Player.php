@@ -27,7 +27,7 @@ class Player extends Model
     protected $fillable = [
         'club_id', 'first_name', 'last_name', 'number', 'position', 'age',
         'shooting', 'passing', 'technique', 'speed', 'stamina', 'jumping', 'defense', 'composure',
-        'reflexes', 'positioning', 'seven_meter', 'potential', 'wage', 'contract_until',
+        'reflexes', 'positioning', 'seven_meter', 'potential', 'wage', 'contract_until', 'face',
         'fitness', 'injured_days', 'injury', 'training_focus', 'training_xp',
     ];
 

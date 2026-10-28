@@ -87,6 +87,7 @@
                     <a href="{{ route('transfers') }}" @if (request()->routeIs('transfers')) aria-current="page" @endif>Transfers</a>
                     <a href="{{ route('finances') }}" @if (request()->routeIs('finances')) aria-current="page" @endif>Finances</a>
                     <a href="{{ route('arena') }}" @if (request()->routeIs('arena')) aria-current="page" @endif>Arena</a>
+                    <a href="{{ route('academy') }}" @if (request()->routeIs('academy')) aria-current="page" @endif>Academy</a>
                 @endif
                 <a href="{{ route('leagues.show') }}" @if (request()->routeIs('leagues.*')) aria-current="page" @endif>Leagues</a>
                 <a href="{{ route('help') }}" @if (request()->routeIs('help')) aria-current="page" @endif>How to play</a>

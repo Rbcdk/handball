@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -46,6 +47,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/finances', [MarketController::class, 'finances'])->name('finances');
         Route::get('/arena', [ArenaController::class, 'show'])->name('arena');
         Route::post('/arena/expand', [ArenaController::class, 'expand'])->name('arena.expand');
+        Route::get('/academy', [AcademyController::class, 'show'])->name('academy');
+        Route::post('/academy/level', [AcademyController::class, 'level'])->name('academy.level');
+        Route::post('/academy/{prospect}/promote', [AcademyController::class, 'promote'])->name('academy.promote');
+        Route::post('/academy/{prospect}/release', [AcademyController::class, 'release'])->name('academy.release');
     });
 });
 

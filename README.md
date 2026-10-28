@@ -111,6 +111,16 @@ Free agents cost only their wage. Contracts that run out at season end make the 
 - AI clubs expand at season end when they sold out at least half their home matches and have twice the cost.
 - Simulated: a top team sells out in its second season; an average team never does with 1.300 seats.
 
+## Youth academy (`app/Game/Academy.php`)
+
+- Managed clubs only. Levels 1-5 (Basic, Local, Regional, National, Elite): 2/2/3/3/4 prospects a season,
+  arriving at skill 44-56 with potential +14 to +22 above it, training 100-180% of the age rate,
+  upkeep 1.000-10.000 gilden per match day, upgrades 300k / 700k / 1.3M / 2M.
+- Prospects live in the `prospects` table (not in the squad, no wage), aged 16-17 on arrival, leave at 20.
+- Talent stars are the hidden potential plus noise that shrinks with the academy level.
+- First intake on the manager's first visit to /academy, then one at the start of each season.
+- `players.face` keeps a promoted prospect's portrait.
+
 ## Leagues and seasons
 
 - The Crown League (top) and two second-tier leagues, the Ember League and the Frost League, 14 clubs each.

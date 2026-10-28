@@ -625,3 +625,36 @@ footer.site { border-top: 1px solid var(--rule); padding-block: 22px 32px; color
 .build__facts dd { margin: 0; font-variant-numeric: tabular-nums; }
 .build .btn { justify-self: start; }
 .news li.arena .dot { background: var(--area); }
+
+/* ---------- Academy ---------- */
+
+.academy { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; margin-top: 20px; }
+.prospects { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.prospect { display: grid; gap: 12px; align-content: start; }
+.prospect__head { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.prospect__id { display: grid; gap: 1px; min-width: 0; }
+.prospect__name { font-size: var(--s-19); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prospect__id .muted { font-size: var(--s-13); }
+.prospect__rating { display: grid; justify-items: center; }
+.prospect__rating b { font-size: var(--s-30); line-height: 1; }
+.prospect__rating span { font-size: 11px; }
+.stars { letter-spacing: 1px; font-size: 15px; line-height: 1.2; }
+.stars i { font-style: normal; color: var(--rule-strong); }
+.stars i.on { color: var(--area); }
+.prospect__skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 16px; margin: 0; }
+.prospect__skills div { display: grid; grid-template-columns: 34px 24px minmax(0, 1fr); align-items: center; gap: 6px; font-size: var(--s-13); }
+.prospect__skills dt { color: var(--muted); }
+.prospect__skills dd { display: contents; }
+.prospect__skills dd span { font-variant-numeric: tabular-nums; text-align: right; }
+.prospect__skills .skill { width: 100%; }
+.prospect__warn { font-size: var(--s-13); color: var(--loss); font-weight: 600; }
+.prospect .btn-row { gap: 8px; }
+.levels { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.levels li { display: grid; justify-items: center; gap: 4px; font-size: 11px; color: var(--muted); text-align: center; }
+.levels span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--rule-strong); font-weight: 800; color: var(--muted); }
+.levels li.is-done span { background: var(--court); border-color: var(--court); color: #fff; }
+.levels li.is-current span { border-color: var(--area); box-shadow: 0 0 0 3px rgba(240, 138, 69, 0.3); }
+.levels li.is-current { color: var(--ink); font-weight: 700; }
+.news li.academy .dot { background: var(--win); }
+@media (max-width: 960px) { .academy { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 420px) { .prospects { grid-template-columns: minmax(0, 1fr); } }

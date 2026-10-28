@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 /** Plays fixtures with the match engine and stores results, logs and player stats. */
 final class MatchRunner
 {
-    public function __construct(private MatchEngine $engine, private Finance $finance, private Training $training, private Arena $arena)
+    public function __construct(private MatchEngine $engine, private Finance $finance, private Training $training, private Arena $arena, private Academy $academy)
     {
     }
 
@@ -65,6 +65,11 @@ final class MatchRunner
             $this->training->afterMatch($fixture->home, $fixture, $result['playerStats']);
             $this->training->afterMatch($fixture->away, $fixture, $result['playerStats']);
             $this->arena->afterMatch($fixture);
+            foreach ([$fixture->home, $fixture->away] as $club) {
+                if ($club->isManaged()) {
+                    $this->academy->afterMatch($club, $fixture);
+                }
+            }
         });
     }
 

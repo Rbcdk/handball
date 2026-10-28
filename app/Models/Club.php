@@ -26,7 +26,7 @@ class Club extends Model
         'rotation' => ['label' => 'Rotation', 'options' => ['low' => 'Low', 'normal' => 'Normal', 'high' => 'High']],
     ];
 
-    protected $fillable = ['league_id', 'user_id', 'name', 'short', 'city', 'color', 'tactics', 'balance', 'arena_capacity', 'fans', 'arena_expansion', 'arena_build_left', 'training_intensity', 'lineup', 'taken_over_at'];
+    protected $fillable = ['league_id', 'user_id', 'name', 'short', 'city', 'color', 'tactics', 'balance', 'arena_capacity', 'fans', 'arena_expansion', 'arena_build_left', 'academy_level', 'academy_intake_season', 'training_intensity', 'lineup', 'taken_over_at'];
 
     protected function casts(): array
     {
@@ -38,6 +38,8 @@ class Club extends Model
             'fans' => 'integer',
             'arena_expansion' => 'integer',
             'arena_build_left' => 'integer',
+            'academy_level' => 'integer',
+            'academy_intake_season' => 'integer',
             'taken_over_at' => 'datetime',
         ];
     }
@@ -55,6 +57,11 @@ class Club extends Model
     public function players(): HasMany
     {
         return $this->hasMany(Player::class);
+    }
+
+    public function prospects(): HasMany
+    {
+        return $this->hasMany(Prospect::class);
     }
 
     public function news(): HasMany

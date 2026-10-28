@@ -25,9 +25,10 @@ final class Avatar
     public static function svg(Player $player, int $size = 40, ?string $shirt = null): string
     {
         $shirt ??= $player->club?->color ?? '#7d8995';
-        $key = $player->id.'|'.$size.'|'.$shirt.'|'.$player->number.'|'.$player->age;
+        $seed = (int) ($player->face ?: $player->id);
+        $key = $seed.'|'.$size.'|'.$shirt.'|'.$player->number.'|'.$player->age;
 
-        return self::$cache[$key] ??= self::draw((int) $player->id, (int) $player->number, (int) $player->age, $shirt, $size, $player->name);
+        return self::$cache[$key] ??= self::draw($seed, (int) $player->number, (int) $player->age, $shirt, $size, $player->name);
     }
 
     public static function draw(int $id, int $number, int $age, string $shirt, int $size, string $label): string

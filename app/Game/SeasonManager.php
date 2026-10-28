@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
  */
 final class SeasonManager
 {
-    public function __construct(private Standings $standings, private FixtureScheduler $scheduler, private Finance $finance, private Arena $arena)
+    public function __construct(private Standings $standings, private FixtureScheduler $scheduler, private Finance $finance, private Arena $arena, private Academy $academy)
     {
     }
 
@@ -42,6 +42,7 @@ final class SeasonManager
             [$promoted, $relegated] = $this->promoteAndRelegate($season);
             $this->arena->endOfSeason($season, $promoted, $relegated);
             $this->developPlayers();
+            $this->academy->endOfSeason();
             $this->endContracts($season);
             // Free agents age too; the oldest stop playing.
             Player::whereNull('club_id')->where('age', '>=', 33)->delete();
@@ -54,6 +55,9 @@ final class SeasonManager
 
             $firstDay = CarbonImmutable::now(config('game.timezone'))->addDays(config('game.off_season_days'));
             $this->scheduler->schedule($next, $firstDay);
+            foreach (\App\Models\Club::whereNotNull('user_id')->get() as $club) {
+                $this->academy->intake($club, $next);
+            }
 
             return $next;
         });

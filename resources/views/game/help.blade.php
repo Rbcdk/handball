@@ -15,6 +15,7 @@
             <a href="#training">Line-up, training and fitness</a>
             <a href="#money">Money and transfers</a>
             <a href="#arena">Arena and fans</a>
+            <a href="#academy">Youth academy</a>
             <a href="#replay">Reading a replay</a>
         </nav>
 
@@ -123,6 +124,12 @@
                 <h2 class="section-title narrow">Arena and fans</h2>
                 <p>Every club has a number of <b>fans</b>. They grow a little with every win, shrink with every loss, and promotion brings many new ones (relegation costs some). The higher you are in the table, the bigger the share of your fans that comes to a home match. Your arena caps the crowd: when it is sold out, the fans who don't get a ticket are money you miss.</p>
                 <p>On the <b>Arena</b> page you can build 250, 500 or 1.000 more seats. You pay at once and the seats are ready after a few match days. Every seat costs upkeep each home match, full or empty, so only build when your arena keeps selling out.</p>
+            </section>
+
+            <section id="academy">
+                <h2 class="section-title narrow">Youth academy</h2>
+                <p>At the start of every season a few 16 and 17 year olds join your academy. They cost no wages and train every match day. Promote a prospect to give him a first-team contract; if you don't, he leaves when he turns 20. The stars are your coaches' guess at how good he can become.</p>
+                <p>Upgrade the academy (five levels) for more and better prospects, faster training and a more accurate talent guess. Each level costs more upkeep per match day; you can scale down again to save money.</p>
             </section>
 
             <section id="replay">
